@@ -25,41 +25,71 @@ func main() {
 	var usersSystem = users.UsersSystem{DB: cfg}
 
 	for {
+		fmt.Println("Welcome!")
 		fmt.Println("1. Login")
-		fmt.Println("2. Register")
+		
 		fmt.Println("9. Exit")
+		fmt.Print("Masukkan input: ")
 		fmt.Scanln(&inputMenu)
-		if inputMenu == 9 {
-			break
-		} else if inputMenu == 2 {
-			data, permit := authSystem.Register()
-			if permit {
-				fmt.Println(data)
-			}
-		} else if inputMenu == 1 {
-			var inputInside int
-			data, permit := authSystem.Login()
-			fmt.Println("Hello", data.Nama)
-			for permit {
-				fmt.Println("1. Insert Buku")
-				fmt.Println("9. Logout")
-				fmt.Scanln(&inputInside)
-				if inputInside == 9 {
-					permit = false
-					data = model.User{}
-				} else if inputInside == 1 {
-					list, err := usersSystem.ListUsers()
-
-					if err != nil {
-						fmt.Println("terjadi error", err.Error())
-
-					} else {
-						fmt.Println(list)
-					}
-
+		switch inputMenu {
+		case 1:
+			// kode login
+			if role == admin {
+				// interface admin
+				1. user {
+					1. show 
+					2. add
+					3. edit
+					4. delete
+				}
+				2. products {
+					1. show 
+					2. add
+					3. edit
+					4. delete
+				}
+				3. transactions
+					1. show 
+					2. add
+					3. edit
+					4. delete
+				4. customers {
+					1. show 
+					2. add
+					3. edit
+					4. delete
+				}
+				5. receipts {
+					1. show 
+					2. add
+					3. edit
+					4. delete
+				}
+			} else if role == user {
+				
+				2. products {
+					1. show 
+					2. add
+					3. edit
+					
+				}
+		
+				4. customers {
+					1. show 
+					2. add
+					
+				}
+				5. receipts {
+					1. show 
+					2. add
+					
 				}
 			}
+		case 9:
+			// exit
+			
 		}
+		
 	}
 	fmt.Println("Thank you....")
 }
