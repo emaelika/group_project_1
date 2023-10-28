@@ -1,8 +1,14 @@
 package model
 
+import (
+	"time"
+)
+
 type User struct {
-	HP           string
-	Nama         string
-	Alamat       string
-	TanggalLahir string
+	UserID    uint `gorm:"primaryKey"`
+	Username  string
+	Password  string
+	Role      string
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
