@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package auth
 
 import (
@@ -36,3 +37,5 @@ func (as *AuthSystem) Login() (model.User, bool) {
 
 	return *currentUser, true
 }
+=======
+>>>>>>> 542e56a07d9e9108743285783f53c27e4af0dc69
