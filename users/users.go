@@ -1,11 +1,11 @@
-
 package users
 
 import (
-	"time"
+	"sqlgo/model"
+
+	"gorm.io/gorm"
 )
 
-<<<<<<< HEAD
 type UsersSystem struct {
 	DB *gorm.DB
 }
@@ -20,13 +20,3 @@ func (us *UsersSystem) ListUsers() ([]model.User, error) {
 
 	return result, nil
 }
-=======
-type User struct {
-	UserID    uint `gorm:"primaryKey"`
-	Username  string
-	Password  string
-	Role      string
-	CreatedAt time.Time
-	UpdatedAt time.Time
-}
->>>>>>> 542e56a07d9e9108743285783f53c27e4af0dc69

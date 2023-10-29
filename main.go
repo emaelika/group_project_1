@@ -2,16 +2,10 @@ package main
 
 import (
 	"fmt"
+	"sqlgo/auth"
 	"sqlgo/config"
 	"sqlgo/customers"
-<<<<<<< HEAD
 	"sqlgo/model"
-=======
-	"sqlgo/products"
-	"sqlgo/receipts"
-	"sqlgo/transactions"
-	"sqlgo/users"
->>>>>>> 542e56a07d9e9108743285783f53c27e4af0dc69
 )
 
 func main() {
@@ -21,7 +15,6 @@ func main() {
 		return
 	}
 
-<<<<<<< HEAD
 	err = db.AutoMigrate(&model.User{}, &model.Customer{}, &model.Product{}, &model.Receipt{}, &model.Transaction{})
 	if err != nil {
 		fmt.Println("Ada Masalah", err.Error())
@@ -88,13 +81,4 @@ func main() {
 			return
 		}
 	}
-=======
-	err = db.AutoMigrate(&users.User{}, &customers.Customer{}, &products.Product{}, &receipts.Receipt{}, &transactions.Transaction{})
-	if err != nil {
-		fmt.Println("Ada Masalah", err.Error())
-		return
-	}
-
-	fmt.Println("Tabel berhasil dibuat")
->>>>>>> 542e56a07d9e9108743285783f53c27e4af0dc69
 }

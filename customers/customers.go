@@ -1,7 +1,6 @@
 package customers
 
 import (
-<<<<<<< HEAD
 	"sqlgo/model"
 
 	"gorm.io/gorm"
@@ -21,16 +20,3 @@ func (cs *CustomersSystem) ListCustomers() ([]model.Customer, error) {
 
 	return result, nil
 }
-=======
-	"time"
-)
-
-type Customer struct {
-	CustomerID uint `gorm:"primaryKey"`
-	CustomerName       string
-	Address    string
-	Phone      string
-	CreatedAt  time.Time
-	UpdatedAt  time.Time
-}
->>>>>>> 542e56a07d9e9108743285783f53c27e4af0dc69
