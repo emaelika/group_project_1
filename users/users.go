@@ -12,7 +12,7 @@ type UsersSystem struct {
 
 func (us *UsersSystem) ListUsers() ([]model.User, error) {
 	var result = make([]model.User, 0)
-	var qry = us.DB.Table("pelanggan").Find(&result)
+	var qry = us.DB.Table("Users").Find(&result)
 	var err = qry.Error
 	if err != nil {
 		return nil, err

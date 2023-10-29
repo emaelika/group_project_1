@@ -10,8 +10,8 @@ type CustomersSystem struct {
 	DB *gorm.DB
 }
 
-func (cs *CustomersSystem) ListUsers() ([]model.User, error) {
-	var result = make([]model.User, 0)
+func (cs *CustomersSystem) ListCustomers() ([]model.Customer, error) {
+	var result = make([]model.Customer, 0)
 	var qry = cs.DB.Table("customers").Find(&result)
 	var err = qry.Error
 	if err != nil {
