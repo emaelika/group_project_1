@@ -1,16 +1,9 @@
 package products
 
 import (
-	"time"
+	"gorm.io/gorm"
 )
 
-type Product struct {
-	ProductID uint `gorm:"primaryKey"`
-	UserID uint
-	ProductName       string
-	Description    string
-	Stok      int
-	Price 	int
-	CreatedAt  time.Time
-	UpdatedAt  time.Time
+type ProductsSystem struct {
+	DB *gorm.DB
 }

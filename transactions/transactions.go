@@ -1,17 +1,9 @@
 package transactions
 
 import (
-	"time"
+	"gorm.io/gorm"
 )
 
-type Transaction struct {
-	TransactionID uint `gorm:"primaryKey"`
-	UserID        uint
-	CustomerID    uint
-	ProductID uint
-	Quantity int
-	date time.Time
-	Total         float64
-	CreatedAt     time.Time
-	UpdatedAt     time.Time
+type TransactionsSystem struct {
+	DB *gorm.DB
 }
