@@ -1,14 +1,22 @@
 package customers
 
 import (
-	"time"
+	"sqlgo/model"
+
+	"gorm.io/gorm"
 )
 
-type Customer struct {
-	CustomerID uint `gorm:"primaryKey"`
-	CustomerName       string
-	Address    string
-	Phone      string
-	CreatedAt  time.Time
-	UpdatedAt  time.Time
+type CustomersSystem struct {
+	DB *gorm.DB
+}
+
+func (cs *CustomersSystem) ListUsers() ([]model.User, error) {
+	var result = make([]model.User, 0)
+	var qry = cs.DB.Table("customers").Find(&result)
+	var err = qry.Error
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
 }
