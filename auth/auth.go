@@ -63,7 +63,7 @@ func (as *AuthSystem) Login() (model.User, bool) {
 	if currentUser.Role == "admin" {
 		fmt.Println("\nAdmin Berhasil Masuk!")
 	} else if currentUser.Role == "pegawai" {
-        fmt.Printf("\nBerhasil Masuk!\nPegawai: %s\n", currentUser.Username)
+        fmt.Printf("\nBerhasil Masuk!\nPegawai : %s\n", currentUser.Username)
     } else {
         fmt.Println("\nPeran Tidak Valid")
     }
