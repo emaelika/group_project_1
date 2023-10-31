@@ -1,7 +1,9 @@
 package products
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"sqlgo/model"
 
 	"gorm.io/gorm"
@@ -13,13 +15,16 @@ type ProductssSystem struct {
 
 func (ps *ProductssSystem) AddProduct(user model.User) {
 	var Product model.Product
+	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Print("Masukkan Nama Produk : ")
-	fmt.Scanln(&Product.ProductName)
-
+	longString, _ := reader.ReadString('\n')
+	Product.ProductName = longString
 	fmt.Print("Masukkan Deskripsi Produk : ")
-	fmt.Scanln(&Product.Description)
 
+	longString, _ = reader.ReadString('\n')
+
+	Product.Description = longString
 	fmt.Print("Masukkan Stok Produk : ")
 	fmt.Scanln(&Product.Stok)
 
