@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"sqlgo/auth"
 	"sqlgo/config"
-	"sqlgo/customers"
 	"sqlgo/model"
+	"sqlgo/products"
 )
 
 func main() {
@@ -21,64 +21,103 @@ func main() {
 		return
 	}
 	var auth = auth.AuthSystem{DB: db}
-	var customers = customers.CustomersSystem{DB: db}
+	auth.SetupAdmin()
+	var ps = products.ProductssSystem{DB: auth.DB}
 	for {
-		var inputMenu int
-		fmt.Println("Selamat datang di Tokoku App!\nMenu:\n1. Log in\n99. Exit\nMasukkan input: ")
-		fmt.Scanln(&inputMenu)
-		switch inputMenu {
-		case 1:
-			var menuLogin int
-			result, permit := auth.Login()
-			if permit && result.Username == "ADMIN" {
-				fmt.Println("\nSelamat datang ", result.Username)
-				for permit {
-					fmt.Println("\n1.")
-					fmt.Println("2. Customer")
-					fmt.Println("3. ")
-					fmt.Println("4. ")
-					fmt.Println("0. Logout")
-					fmt.Println("99. Exit")
-					fmt.Print("Masukkan pilihan: ")
-					fmt.Scanln(&menuLogin)
-					switch menuLogin {
-					case 2:
-						for {
-							fmt.Println("\n1. Customers List")
-							fmt.Println("2. ")
-							fmt.Println("3. ")
-							fmt.Println("4. ")
-							fmt.Println("0. Logout")
-							fmt.Println("99. Exit")
-							fmt.Print("Masukkan pilihan: ")
-							fmt.Scanln(&menuLogin)
-							switch menuLogin {
-							case 1:
-								cust, err := customers.ListCustomers()
-								if err != nil {
-									fmt.Println("Error getting customer:", err.Error())
-									return
-								}
-
-								for _, cust := range cust {
-									fmt.Println(cust.CustomerID, cust.CustomerName, cust.Address)
-								}
-							case 99:
-								fmt.Println("\nTerima kasih!")
-								return
-
-							}
-						}
-					case 99:
-						fmt.Println("\nTerima kasih!")
-						return
-					}
-				}
-			}
-
-		case 99:
-			fmt.Println("\nTerima kasih!")
-			return
-		}
+		fmt.Println("\nSelamat Datang Di Tokoku App!")
+		menuUtama(&auth, &ps)
 	}
+}
+
+func menuUtama(auth *auth.AuthSystem, ps *products.ProductssSystem) {
+	
+	for {
+		fmt.Println("\n     === MENU ===")
+        fmt.Println("(1) :> Login")
+        fmt.Println("(0) :> Exit")
+        fmt.Print("Masukkan Pilihan : ")
+		
+        var inputMenu int
+        fmt.Scanln(&inputMenu)
+		
+        switch inputMenu {
+		case 1:
+            user, loggedIn := auth.Login()
+            if loggedIn {
+				if user.Role == "admin" {
+					menuAdmin(auth, ps, user)
+                } else if user.Role == "pegawai" {
+                    menuPegawai(auth, ps, user)
+                }
+            }
+        case 0:
+            fmt.Println("\nTerima kasih!")
+            return
+        default:
+            fmt.Println("\nPilihan tidak valid. Silakan pilih menu yang benar.")
+        }
+    }
+}
+
+func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, user model.User) {
+	for {
+        		fmt.Println("\n    === MENU ADMIN  ===")
+		fmt.Println("(1) :> Tambah Pegawai")
+		fmt.Println("(2) :> Tambah Barang")
+		fmt.Println("(3) :> Edit Barang")
+		fmt.Println("(4) :> Hapus Barang")
+		fmt.Println("(5) :> Lihat Daftar Barang")
+		fmt.Println("(6) :> Lihat Daftar Pegawai")
+		fmt.Println("(0) :> Logout")
+		fmt.Print("Masukkan Pilihan : ")
+
+        var choice int
+        fmt.Scanln(&choice)
+
+        switch choice {
+        case 1:
+            auth.AddPegawai()
+		case 2:
+			ps.AddProduct(user)
+        case 0:
+            fmt.Println("\nAdmin logout")
+            return
+        default:
+            fmt.Println("\nPilihan tidak valid. Silakan pilih menu yang benar.")
+        }
+    }
+}
+
+func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, user model.User) {
+	for {
+        fmt.Println("\n    === MENU PEGAWAI  ===")
+        fmt.Println("(1) :> Tambah Barang")
+        fmt.Println("(2) :> Edit Barang")
+        fmt.Println("(3) :> Tambah Customer")
+        fmt.Println("(4) :> Buat Transaksi")
+        fmt.Println("(5) :> Lihat Daftar Barang")
+        fmt.Println("(0) :> Logout")
+        fmt.Print("Masukkan Pilihan : ")
+
+        var choice int
+        fmt.Scanln(&choice)
+
+        switch choice {
+        case 1:
+            ps.AddProduct(user)
+        // case 2:
+        //     auth.EditBarang()
+        // case 3:
+        //     auth.TambahCustomer()
+        // case 4:
+        //     auth.BuatTransaksi()
+        // case 5:
+        //     auth.LihatDaftarBarang()
+        case 0:
+            fmt.Println("\nPegawai logout")
+            return
+        default:
+            fmt.Println("\nPilihan tidak valid. Silakan pilih menu yang benar.")
+        }
+    }
 }
