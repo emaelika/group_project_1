@@ -23,10 +23,10 @@ func (as *AuthSystem) SetupAdmin() {
 			}
 			result := as.DB.Create(&admin)
 			if result.Error != nil {
-				fmt.Println("Error saat membuat admin:", result.Error)
+				fmt.Println("Error saat membuat Akun admin:", result.Error)
 				return
 			}
-			fmt.Println("Admin berhasil dibuat!")
+			fmt.Println("\nAkun Admin berhasil dibuat !")
 		} else {
 			fmt.Println("Error:", err)
 		}
