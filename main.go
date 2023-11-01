@@ -87,31 +87,25 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 
 		switch choice {
 		case 1:
-			auth.AddPegawai()
+			us.AddPegawai()
         case 2:
-			pegawai, _ := us.ListUsers()
-			fmt.Println("")
-			for _, user := range pegawai {
-				if user.Role != "admin" {
-					fmt.Println(user.UserID, user.Username, user.Role)
-				}
-
-			}
-			fmt.Print("\n\t9. Back\nMasukkan input: ")
-			fmt.Scanln(&choice)
-			if choice == 9 {
-				break
-			} else {
-				fmt.Println("Coba lagi")
-			}
+			us.ViewPegawai()
 		case 3:
-			ps.AddProduct(user)
+			us.DeletePegawai()
         case 4:
-            ps.ViewProduct()
+			ps.AddProduct(user)
         case 5:
-            ps.UpdateProduct()
+            ps.ViewProduct()
         case 6:
+            ps.UpdateProduct()
+		case 7:
             ps.DeleteProduct()
+		case 8:
+			cs.AddCustomer()
+		case 9:
+			cs.ViewCustomers()
+		case 10:
+			cs.DeleteCustomer()
 		case 99:
 			fmt.Println("\nAdmin logout")
 			return
@@ -149,7 +143,7 @@ func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *custom
 		case 4:
 			cs.AddCustomer()
 		case 5:
-			cs.ListCustomers()
+			cs.ViewCustomers()
 		
 		case 0:
 			fmt.Println("")
