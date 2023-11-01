@@ -122,10 +122,9 @@ func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *custom
 		fmt.Println("(2) :> Edit Barang")
 		fmt.Println("(3) :> Lihat Daftar Barang")
 		fmt.Println("(4) :> Tambah Customer")
-		fmt.Println("(5) :> Edit Customer")
-		fmt.Println("(6) :> Lihat Daftar Customer")
-		fmt.Println("(7) :> Buat Transaksi")
-		fmt.Println("(8) :> Lihat Daftar Transaksi")
+		fmt.Println("(5) :> Lihat Daftar Customer")
+		fmt.Println("(6) :> Buat Nota Transaksi")
+		fmt.Println("(7) :> Lihat Daftar Transaksi")
 		fmt.Println("(9) :> ")
 		fmt.Println("(99) :> Logout")
 		fmt.Print("Masukkan Pilihan : ")
@@ -140,6 +139,11 @@ func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *custom
             ps.UpdateProduct()
         case 3:
             ps.ViewProduct()
+		case 4:
+			cs.AddCustomer()
+		case 5:
+			cs.ListCustomers()
+		
 		case 0:
 			fmt.Println("")
 

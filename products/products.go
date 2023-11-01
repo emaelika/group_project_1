@@ -31,6 +31,7 @@ func (ps *ProductssSystem) AddProduct(user model.User) {
 	fmt.Print("Masukkan Harga Produk : ")
 	fmt.Scan(&Product.Price)
 
+	Product.Username = user.Username
 	Product.UserID = user.UserID
 
 	result := ps.DB.Create(&Product)
@@ -40,8 +41,9 @@ func (ps *ProductssSystem) AddProduct(user model.User) {
 		return
 	}
 
-	fmt.Printf("\nProduk %s \nberhasil ditambahkan oleh %s!\n", Product.ProductName, user.Username)
+	fmt.Printf("\nProduk %s \nBerhasil ditambahkan oleh %s!\n", Product.ProductName, user.Username)
 }
+
 
 func (ps *ProductssSystem) ViewProduct() {
 	var Products []model.Product
@@ -53,7 +55,7 @@ func (ps *ProductssSystem) ViewProduct() {
 	}
 
 	for _, product := range Products {
-		fmt.Printf("\nNama Produk: %s\nDeskripsi: %s\nStok: %d\nHarga: %d\nDibuat oleh: %d\n", product.ProductName, product.Description, product.Stok, product.Price, product.UserID)
+		fmt.Printf("\nNama Produk: %sDeskripsi: %sStok: %d\nHarga: %d\nDibuat oleh: %s\n", product.ProductName, product.Description, product.Stok, product.Price, product.Username)
 	}
 }
 
