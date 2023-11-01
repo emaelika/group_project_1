@@ -14,44 +14,117 @@ type CustomersSystem struct {
 }
 
 func (cs *CustomersSystem) AddCustomer() {
-	var Customer model.Customer
-	reader := bufio.NewReader(os.Stdin)
+    for {
+        var Customer model.Customer
+        var choice int
+        reader := bufio.NewReader(os.Stdin)
 
-	fmt.Print("Masukkan Nama Customer : ")
-	longString, _ := reader.ReadString('\n')
-	Customer.CustomerName = longString
+        fmt.Print("Masukkan Nama Customer : ")
+        longString, _ := reader.ReadString('\n')
+        Customer.CustomerName = longString
 
-	fmt.Print("Masukkan Alamat Customer : ")
-	longString, _ = reader.ReadString('\n')
-	Customer.Address = longString
+        fmt.Print("Masukkan Alamat Customer : ")
+        longString, _ = reader.ReadString('\n')
+        Customer.Address = longString
 
-	fmt.Print("Masukkan Nomor Telepon Customer : ")
-	longString, _ = reader.ReadString('\n')
-	Customer.Phone = longString
+        fmt.Print("Masukkan Nomor Telepon Customer : ")
+        longString, _ = reader.ReadString('\n')
+        Customer.Phone = longString
 
-	result := cs.DB.Create(&Customer)
+        result := cs.DB.Create(&Customer)
 
-	if result.Error != nil {
-		fmt.Println("Error Saat Menambahkan Customer", result.Error)
-		return
-	}
+        if result.Error != nil {
+            fmt.Println("Error Saat Menambahkan Customer", result.Error)
+            return
+        }
 
-	fmt.Printf("\nCustomer %s \nBerhasil ditambahkan!\n", Customer.CustomerName)
+        fmt.Printf("\nCustomer %s \nBerhasil ditambahkan!\n", Customer.CustomerName)
+
+        fmt.Print("\n\t(1) :> Tambah Customer Lagi \n\t(9) :> Kembali \nMasukkan Pilihan : ")
+        fmt.Scanln(&choice)
+        if choice == 9 {
+            return
+        } else if choice != 1 {
+            fmt.Println("Coba lagi")
+            continue
+        }
+    }
 }
 
-func (cs *CustomersSystem) ListCustomers() ([]model.Customer, error) {
-	var result = make([]model.Customer, 0)
-	var qry = cs.DB.Table("customers").Find(&result)
-	var err = qry.Error
-	if err != nil {
-		return nil, err
-	}
+func (cs *CustomersSystem) ViewCustomers() {
+    for {
+        var Customers []model.Customer
+        var choice int
 
-	fmt.Println("Daftar Pelanggan:")
-	for _, customer := range result {
-		fmt.Printf("\nNama Pelanggan: %sAlamat: %sNomor Telepon: %s\nDibuat pada: %s\nDiperbarui pada: %s\n\n",
-			customer.CustomerName, customer.Address, customer.Phone, customer.CreatedAt, customer.UpdatedAt)
-	}
+        result := cs.DB.Find(&Customers)
+        
+        if result.Error != nil {
+            fmt.Println("Error Saat Menampilkan Customers", result.Error)
+            return
+        }
 
-	return result, nil
+        for _, customer := range Customers {
+            fmt.Printf("\nNama Pelanggan: %sAlamat: %sNomor Telepon: %s\nDibuat pada: %s\nDiperbarui pada: %s\n\n",
+                customer.CustomerName, customer.Address, customer.Phone, customer.CreatedAt, customer.UpdatedAt)
+        }
+
+
+		fmt.Print("\n\t(9) :> Kembali\nMasukkan Pilihan : ")
+	fmt.Scanln(&choice)
+	if choice == 9 {
+		return
+	} else {
+		fmt.Println("Coba lagi")
+		}
+	}
+}
+
+func (cs *CustomersSystem) DeleteCustomer() {
+    for {
+        var Customer model.Customer
+        var choice int
+        reader := bufio.NewReader(os.Stdin)
+
+        fmt.Print("\nMasukkan Nama Customer yang akan dihapus : ")
+        customerName, _ := reader.ReadString('\n')
+
+        result := cs.DB.Where("customer_name = ?", customerName).First(&Customer)
+        
+        if result.Error != nil {
+            fmt.Println("Error saat mencari customer:", result.Error)
+            
+            fmt.Print("\n\t(1) :> Hapus Customer Lagi \n\t(9) :> Kembali \nMasukkan Pilihan : ")
+            fmt.Scanln(&choice)
+            
+            if choice == 9 {
+                return
+            } else if choice != 1 {
+                fmt.Println("Coba lagi")
+                continue
+            }
+            
+            return
+        }
+
+        result = cs.DB.Delete(&Customer)
+        
+        if result.Error != nil {
+            fmt.Println("Error saat menghapus customer:", result.Error)
+            
+            return
+        }
+
+        fmt.Printf("\nCustomer '%s' berhasil dihapus!\n", customerName)
+
+        
+         fmt.Print("\n\t(1) :> Hapus Customer Lagi \n\t(9) :> Kembali \nMasukkan Pilihan : ")
+         fmt.Scanln(&choice)
+         
+         if choice == 9 {
+             return
+         } else if choice != 1 {
+             fmt.Println("Coba lagi")
+             continue
+         }
+    }
 }
