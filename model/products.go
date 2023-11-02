@@ -11,7 +11,7 @@ type Product struct {
 	ProductName string
 	Description string
 	Stok        int
-	Price       int
+	Price       float64
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }
