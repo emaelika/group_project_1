@@ -1,6 +1,7 @@
 package users
 
 import (
+	"errors"
 	"fmt"
 	"sqlgo/model"
 
@@ -23,6 +24,18 @@ func (us *UsersSystem) AddPegawai() {
         fmt.Scanln(&pegawai.Password)
 
         pegawai.Role = "pegawai"
+
+        var existingUser model.User
+        if err := us.DB.Where("username = ?", pegawai.Username).First(&existingUser).Error; err != nil {
+             if !errors.Is(err, gorm.ErrRecordNotFound) {
+        fmt.Println("Error saat memeriksa username:", err)
+        return
+        }
+        } else {
+            fmt.Println("Username sudah ada, harap masukan username yang lain !!")
+            continue
+        }
+
 
         result := us.DB.Create(&pegawai)
 
@@ -56,10 +69,10 @@ func (us *UsersSystem) ViewPegawai() {
 	fmt.Println("")
 	for _, user := range pegawai {
 		if user.Role != "admin" {
-			fmt.Printf("\nNama : %s\nStatus : %s\n", user.Username, user.Role)
+			fmt.Printf("\n\nNama : %s\nStatus : %s\n  >>>AKUN LOGIN<<< \nUsername : %s\nPassword : %s", user.Username, user.Role, user.Username, user.Password)
 		}
 	}
-	fmt.Print("\n\t(9) :> Kembali\nMasukkan Pilihan : ")
+	fmt.Print("\n\n\t(9) :> Kembali\nMasukkan Pilihan : ")
 	fmt.Scanln(&choice)
 	if choice == 9 {
 		return

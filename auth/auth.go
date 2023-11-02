@@ -26,7 +26,7 @@ func (as *AuthSystem) SetupAdmin() {
 				fmt.Println("Error saat membuat Akun admin:", result.Error)
 				return
 			}
-			fmt.Println("\nAkun Admin berhasil dibuat !")
+			fmt.Println("\n'Akun Admin Tidak Ada' \nAkun Admin berhasil dibuat !")
 		} else {
 			fmt.Println("Error:", err)
 		}

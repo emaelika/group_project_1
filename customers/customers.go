@@ -2,6 +2,7 @@ package customers
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"os"
 	"sqlgo/model"
@@ -19,9 +20,20 @@ func (cs *CustomersSystem) AddCustomer() {
         var choice int
         reader := bufio.NewReader(os.Stdin)
 
-        fmt.Print("Masukkan Nama Customer : ")
+        fmt.Print("\nMasukkan Nama Customer : ")
         longString, _ := reader.ReadString('\n')
         Customer.CustomerName = longString
+
+        var existingCustomer model.Customer
+        if err := cs.DB.Where("customer_name = ?", Customer.CustomerName).First(&existingCustomer).Error; err != nil {
+        if !errors.Is(err, gorm.ErrRecordNotFound) {
+        fmt.Println("Error saat memeriksa nama customer:", err)
+        return
+     }
+        } else {
+            fmt.Println("\nNama customer sudah ada, harap masukan nama customer yang lain")
+            continue
+        }
 
         fmt.Print("Masukkan Alamat Customer : ")
         longString, _ = reader.ReadString('\n')
@@ -30,6 +42,9 @@ func (cs *CustomersSystem) AddCustomer() {
         fmt.Print("Masukkan Nomor Telepon Customer : ")
         longString, _ = reader.ReadString('\n')
         Customer.Phone = longString
+
+        
+
 
         result := cs.DB.Create(&Customer)
 
@@ -109,7 +124,7 @@ func (cs *CustomersSystem) DeleteCustomer() {
         result = cs.DB.Delete(&Customer)
         
         if result.Error != nil {
-            fmt.Println("Error saat menghapus customer:", result.Error)
+            fmt.Println("Customer Tidak Ada", result.Error)
             
             return
         }
