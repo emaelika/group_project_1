@@ -44,7 +44,6 @@ func (ps *ProductssSystem) AddProduct(user model.User) {
 	fmt.Printf("\nProduk %s \nBerhasil ditambahkan oleh %s!\n", Product.ProductName, user.Username)
 }
 
-
 func (ps *ProductssSystem) ViewProduct() {
 	var Products []model.Product
 
@@ -58,7 +57,6 @@ func (ps *ProductssSystem) ViewProduct() {
 		fmt.Printf("\nNama Produk: %sDeskripsi: %sStok: %d\nHarga: %d\nDibuat oleh: %s\n", product.ProductName, product.Description, product.Stok, product.Price, product.Username)
 	}
 }
-
 
 func (ps *ProductssSystem) UpdateProduct() {
 	var Product model.Product
@@ -111,4 +109,14 @@ func (ps *ProductssSystem) DeleteProduct() {
 		return
 	}
 	fmt.Printf("\nProduk %s berhasil dihapus!\n", productName)
+}
+
+func (ps *ProductssSystem) SelectProduct(ID uint) (model.Product, error) {
+	var produk model.Product
+	err := ps.DB.Where("id = ?", ID).First(&produk).Error
+	if err != nil {
+		return produk, err
+	}
+
+	return produk, nil
 }

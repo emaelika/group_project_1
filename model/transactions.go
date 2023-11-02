@@ -6,12 +6,12 @@ import (
 
 type Transaction struct {
 	TransactionID uint `gorm:"primaryKey"`
-	UserID        uint
-	CustomerID    uint
-	ProductID     uint
+	UserID        uint `gorm:"foreignKey"`
+	CustomerID    uint `gorm:"foreignKey"`
+	ProductID     uint `gorm:"foreignKey"`
 	Quantity      int
-	date          time.Time
-	Total         float64
-	CreatedAt     time.Time
-	UpdatedAt     time.Time
+
+	Total     float64
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }

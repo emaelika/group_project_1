@@ -1,9 +1,89 @@
 package transactions
 
 import (
+	"fmt"
+
+	"sqlgo/customers"
+	"sqlgo/model"
+	"sqlgo/products"
+
 	"gorm.io/gorm"
 )
 
 type TransactionsSystem struct {
 	DB *gorm.DB
+}
+
+func (ts *TransactionsSystem) AddTransaction (ps *products.ProductssSystem, cs *customers.CustomersSystem, user model.User) {
+	var Transaksi model.Transaction
+	
+	var cust uint
+	
+	var pembeli model.Customer
+	
+//	longString, _ := reader.ReadString('\n')
+//	Product.ProductName = longString
+	fmt.Print("Masukkan id customer : ")
+	fmt.Scanln(&cust)
+	pembeli, err := cs.SelectCustomer(cust)
+	if err !=  nil {
+		fmt.Println("Customer Tidak Ditemukan")
+		return
+	}
+
+	Transaksi.CustomerID = pembeli.CustomerID
+
+	fmt.Print("Masukkan Produk yang dibeli: ")
+	fmt.Scanln(&cust)
+	var item model.Product
+	item, _ = ps.SelectProduct(cust)
+	
+	
+
+	fmt.Printf(item.ProductName, item.Price, "Stok: ", item.Stok, "\n")
+	fmt.Print("Masukkan Jumlah pembelian: ")
+	var jumlah int
+	fmt.Scanln(&jumlah)
+	if jumlah > item.Stok {
+		fmt.Println("Anda beli terlalu banyak")
+		return
+	}
+	var SubTotal float64
+	SubTotal = float64(item.Price) * float64(jumlah)
+	Transaksi.Total = SubTotal
+	Transaksi.Quantity = jumlah
+	Transaksi.ProductID = item.ProductID
+	fmt.Println(Transaksi)
+	var input int
+	fmt.Println("9. Batal\nInput any key to continue")
+	fmt.Scanln(&input)
+	if input == 9 {
+		return
+	}
+	
+
+
+	result := ts.DB.Create(&Transaksi)
+
+	if result.Error != nil {
+		fmt.Println("Error Saat Menambahkan Transaksi", result.Error)
+		return
+	}
+
+	fmt.Printf("\nTransaksi Berhasil ditambahkan oleh %s!\n",  user.Username)
+}
+
+func (ts *TransactionsSystem) ViewTransactions() {
+	var List []model.Transaction
+
+	result := ts.DB.Find(&List)
+	if result.Error != nil {
+		fmt.Println("Error Saat Menampilkan Transaksi", result.Error)
+		return
+	}
+
+	for _, Transaction := range List {
+		fmt.Printf("\nNomor Nota: %v, Tanggal: %v, Customer: %v,Kasir: %v\nBarang: %v, Harga: %v, Jumlah: %v\nTotal: %s\n, \n", Transaction.TransactionID, Transaction.CreatedAt, )
+		Transaction. Transaction. Transaction.
+	}
 }

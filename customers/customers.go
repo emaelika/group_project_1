@@ -55,3 +55,13 @@ func (cs *CustomersSystem) ListCustomers() ([]model.Customer, error) {
 
 	return result, nil
 }
+
+func (cs *CustomersSystem) SelectCustomer(ID uint) (model.Customer, error) {
+	var cust model.Customer
+	err := cs.DB.Where("id = ?", ID).First(&cust).Error
+	if err != nil {
+		return cust, err
+	}
+
+	return cust, nil
+}

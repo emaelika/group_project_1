@@ -66,12 +66,21 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 	for {
 
 		fmt.Println("\n    === MENU ADMIN  ===")
-		fmt.Println("(1) :> Tambah Pegawai")
-		fmt.Println("(2) :> Lihat Daftar Pegawai")
-		fmt.Println("(3) :> Tambah Barang")
-		fmt.Println("(4) :> Lihat Daftar Barang")
-		fmt.Println("(5) :> Edit Barang")
-		fmt.Println("(6) :> Hapus Barang")
+		fmt.Println("(1)  :> Tambah Pegawai")
+		fmt.Println("(2)  :> Lihat Daftar Pegawai")
+		fmt.Println("(3)  :> Hapus Pegawai")
+		fmt.Println("(4)  :> Tambah Barang")
+		fmt.Println("(5)  :> Lihat Daftar Barang")
+		fmt.Println("(6)  :> Edit Barang")
+		fmt.Println("(7)  :> Hapus Barang")
+		fmt.Println("(8)  :> Tambah Customer")
+		fmt.Println("(9)  :> Lihat Daftar Customer")
+		fmt.Println("(10) :> Hapus Customer")
+		fmt.Println("(11) :> Buat Nota Transaksi")
+		fmt.Println("(12) :> Lihat Daftar Transaksi")
+		fmt.Println("(13) :> Lihat Daftar Nota Transaksi")
+		fmt.Println("(14) :> Hapus Transaksi")
+		fmt.Println("(15) :> Hapus Nota Transaksi")
 		fmt.Println("(99) :> Logout")
 		fmt.Print("Masukkan Pilihan : ")
 
@@ -81,7 +90,7 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 		switch choice {
 		case 1:
 			auth.AddPegawai()
-        case 2:
+		case 2:
 			pegawai, _ := us.ListUsers()
 			fmt.Println("")
 			for _, user := range pegawai {
@@ -99,12 +108,12 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 			}
 		case 3:
 			ps.AddProduct(user)
-        case 4:
-            ps.ViewProduct()
-        case 5:
-            ps.UpdateProduct()
-        case 6:
-            ps.DeleteProduct()
+		case 4:
+			ps.ViewProduct()
+		case 5:
+			ps.UpdateProduct()
+		case 6:
+			ps.DeleteProduct()
 		case 99:
 			fmt.Println("\nAdmin logout")
 			return
@@ -135,15 +144,15 @@ func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *custom
 		switch choice {
 		case 1:
 			ps.AddProduct(user)
-        case 2:
-            ps.UpdateProduct()
-        case 3:
-            ps.ViewProduct()
+		case 2:
+			ps.UpdateProduct()
+		case 3:
+			ps.ViewProduct()
 		case 4:
 			cs.AddCustomer()
 		case 5:
 			cs.ListCustomers()
-		
+
 		case 0:
 			fmt.Println("")
 

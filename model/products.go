@@ -6,8 +6,8 @@ import (
 
 type Product struct {
 	ProductID   uint `gorm:"primaryKey"`
-	UserID uint
-	Username      string
+	UserID      uint `gorm:"foreignKey"`
+	Username    string
 	ProductName string
 	Description string
 	Stok        int
