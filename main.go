@@ -75,12 +75,11 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 		fmt.Println("(7)  :> Hapus Barang")
 		fmt.Println("(8)  :> Tambah Customer")
 		fmt.Println("(9)  :> Lihat Daftar Customer")
-		fmt.Println("(10) :> Hapus Customer")
-		fmt.Println("(11) :> Buat Nota Transaksi")
-		fmt.Println("(12) :> Lihat Daftar Transaksi")
-		fmt.Println("(13) :> Lihat Daftar Nota Transaksi")
+		fmt.Println("(10) :> Edit Customer")
+		fmt.Println("(11) :> Hapus Customer")
+		fmt.Println("(12) :> Buat Nota Transaksi")
+		fmt.Println("(13) :> Lihat Daftar Transaksi")
 		fmt.Println("(14) :> Hapus Transaksi")
-		fmt.Println("(15) :> Hapus Nota Transaksi")
 		fmt.Println("(99) :> Logout")
 		fmt.Print("Masukkan Pilihan : ")
 
@@ -89,31 +88,31 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 
 		switch choice {
 		case 1:
-			auth.AddPegawai()
+			us.AddPegawai()
 		case 2:
-			pegawai, _ := us.ListUsers()
-			fmt.Println("")
-			for _, user := range pegawai {
-				if user.Role != "admin" {
-					fmt.Println(user.UserID, user.Username, user.Role)
-				}
-
-			}
-			fmt.Print("\n\t9. Back\nMasukkan input: ")
-			fmt.Scanln(&choice)
-			if choice == 9 {
-				break
-			} else {
-				fmt.Println("Coba lagi")
-			}
+			us.ViewPegawai()
 		case 3:
-			ps.AddProduct(user)
+			us.DeletePegawai()
 		case 4:
-			ps.ViewProduct()
+			ps.AddProduct(user)
 		case 5:
-			ps.UpdateProduct()
+			ps.ViewProduct()
 		case 6:
+			ps.UpdateProduct()
+		case 7:
 			ps.DeleteProduct()
+		case 8:
+			cs.AddCustomer()
+		case 9:
+			cs.ViewCustomers()
+		case 10:
+			cs.EditCustomer()
+		case 11:
+			cs.DeleteCustomer()
+		case 12:
+
+		case 13:
+
 		case 99:
 			fmt.Println("\nAdmin logout")
 			return
@@ -133,8 +132,8 @@ func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *custom
 		fmt.Println("(4) :> Tambah Customer")
 		fmt.Println("(5) :> Lihat Daftar Customer")
 		fmt.Println("(6) :> Buat Nota Transaksi")
-		fmt.Println("(7) :> Lihat Daftar Transaksi")
-		fmt.Println("(9) :> ")
+		fmt.Println("(7) :> Lihat Daftar Nota Transaksi")
+		fmt.Println("(8) :> Lihat Daftar Transaksi")
 		fmt.Println("(99) :> Logout")
 		fmt.Print("Masukkan Pilihan : ")
 
@@ -151,7 +150,10 @@ func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *custom
 		case 4:
 			cs.AddCustomer()
 		case 5:
-			cs.ListCustomers()
+			cs.ViewCustomers()
+		case 6:
+		case 7:
+		case 8:
 
 		case 0:
 			fmt.Println("")

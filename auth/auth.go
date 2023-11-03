@@ -23,10 +23,10 @@ func (as *AuthSystem) SetupAdmin() {
 			}
 			result := as.DB.Create(&admin)
 			if result.Error != nil {
-				fmt.Println("Error saat membuat admin:", result.Error)
+				fmt.Println("Error saat membuat Akun admin:", result.Error)
 				return
 			}
-			fmt.Println("Admin berhasil dibuat!")
+			fmt.Println("\n'Akun Admin Tidak Ada' \nAkun Admin berhasil dibuat !")
 		} else {
 			fmt.Println("Error:", err)
 		}
@@ -70,23 +70,3 @@ func (as *AuthSystem) Login() (model.User, bool) {
     return *currentUser, true
 }
 
-func (as *AuthSystem) AddPegawai() {
-	var pegawai model.User
-
-	fmt.Print("Masukkan Username Pegawai Baru : ")
-    fmt.Scanln(&pegawai.Username)
-
-    fmt.Print("Masukkan Password Pegawai Baru : ")
-    fmt.Scanln(&pegawai.Password)
-
-    pegawai.Role = "pegawai"
-
-	result := as.DB.Create(&pegawai)
-
-	if result.Error != nil {
-        fmt.Println("Error saat menambahkan pegawai:", result.Error)
-        return
-    }
-	
-    fmt.Printf("\nPegawai '%s' berhasil ditambahkan!\n", pegawai.Username)
-}
