@@ -215,3 +215,20 @@ func (ps *ProductssSystem) DeleteProduct() {
 		}
 	}
 }
+
+func (ps *ProductssSystem) SelectProduct(ProdName string) (model.Product, error) {
+	var produk model.Product
+	err := ps.DB.Where("Product_Name = ?", ProdName).First(&produk).Error
+	if err != nil {
+		return produk, err
+	}
+
+	return produk, nil
+}
+
+func (ps *ProductssSystem) MinusStock(Sale int, Produk model.Product) {
+	Produk.Stok -= Sale
+
+	// Update the product in the database.
+	ps.DB.Save(&Produk)
+}

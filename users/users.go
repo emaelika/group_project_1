@@ -36,7 +36,6 @@ func (us *UsersSystem) AddPegawai() {
             continue
         }
 
-
         result := us.DB.Create(&pegawai)
 
         if result.Error != nil {

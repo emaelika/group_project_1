@@ -139,6 +139,16 @@ func (cs *CustomersSystem) DeleteCustomer() {
 	}
 }
 
+func (cs *CustomersSystem) SelectCustomer(CustName string) (model.Customer, error) {
+	var cust model.Customer
+	result := cs.DB.Where("Customer_Name = ?", CustName).Find(&cust)
+	if result.Error != nil {
+		return cust, result.Error
+	}
+
+	return cust, nil
+}
+
 func (cs *CustomersSystem) EditCustomer() {
 	for {
 		var Customer model.Customer

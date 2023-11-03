@@ -1,20 +1,18 @@
 package model
 
 import (
-	"time"
+    "time"
 )
 
 type Receipt struct {
-	NoteID        uint `gorm:"primaryKey"`
-	CustomerID    uint
-	TransactionID uint
-	ProductName   string
-	Product       string
-	Total         int
-	Quantity      int
-	CustomerName  string
-	date          time.Time
-	Price         float64
-	CreatedAt     time.Time
-	UpdatedAt     time.Time
+	TransactionID uint `gorm:"primaryKey"`
+    CustomerID    uint `gorm:"foreignKey"`
+    ProductID     uint `gorm:"foreignKey"`
+    CustomerName  string
+    ProductName   string
+    Total         float64
+    Quantity      int
+    Price     float64
+    CreatedAt time.Time
+    UpdatedAt time.Time
 }
