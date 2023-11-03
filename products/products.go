@@ -54,7 +54,7 @@ func (ps *ProductssSystem) ViewProduct() {
 	}
 
 	for _, product := range Products {
-		fmt.Printf("\nNama Produk: %sDeskripsi: %sStok: %d\nHarga: %d\nDibuat oleh: %s\n", product.ProductName, product.Description, product.Stok, product.Price, product.Username)
+		fmt.Printf("\nNama Produk: %sDeskripsi: %sStok: %d\nHarga: %v\nDibuat oleh: %s\n", product.ProductName, product.Description, product.Stok, product.Price, product.Username)
 	}
 }
 
@@ -111,12 +111,19 @@ func (ps *ProductssSystem) DeleteProduct() {
 	fmt.Printf("\nProduk %s berhasil dihapus!\n", productName)
 }
 
-func (ps *ProductssSystem) SelectProduct(ID uint) (model.Product, error) {
+func (ps *ProductssSystem) SelectProduct(ProdName string) (model.Product, error) {
 	var produk model.Product
-	err := ps.DB.Where("id = ?", ID).First(&produk).Error
+	err := ps.DB.Where("Product_Name = ?", ProdName).First(&produk).Error
 	if err != nil {
 		return produk, err
 	}
 
 	return produk, nil
+}
+
+func (ps *ProductssSystem) MinusStock(Sale int, Produk model.Product) {
+	Produk.Stok -= Sale
+
+	// Update the product in the database.
+	ps.DB.Save(&Produk)
 }

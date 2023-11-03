@@ -8,10 +8,10 @@ type Receipt struct {
 	CustomerID    uint `gorm:"foreignKey"`
 	TransactionID uint `gorm:"primaryKey"`
 	ProductName   string
-
-	Total        int
-	Quantity     int
-	CustomerName string
+	ProductID     uint `gorm:"foreignKey"`
+	Total         float64
+	Quantity      int
+	CustomerName  string
 
 	Price     float64
 	CreatedAt time.Time
