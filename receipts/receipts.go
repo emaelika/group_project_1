@@ -7,3 +7,5 @@ import (
 type ReceiptsSystem struct {
 	DB *gorm.DB
 }
+
+func (rs *ReceiptsSystem) CreateReceipt()
