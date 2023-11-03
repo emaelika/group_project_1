@@ -80,10 +80,10 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 		fmt.Println("(10) :> Edit Customer")
 		fmt.Println("(11) :> Hapus Customer")
 		fmt.Println("(12) :> Buat Nota Transaksi")
-		fmt.Println("(13) :> Lihat Daftar Transaksi")
-		fmt.Println("(14) :> Lihat Daftar Nota Transaksi")
-		fmt.Println("(15) :> Hapus Transaksi")
-		fmt.Println("(16) :> Hapus Nota Transaksi")
+		fmt.Println("(13) :> Lihat Daftar Nota Transaksi")
+		fmt.Println("(14) :> Hapus Nota Transaksi")
+		fmt.Println("(15) :> Lihat Daftar Transaksi (COMING SOON)")
+		fmt.Println("(16) :> Hapus Transaksi (COMING SOON)")
 		fmt.Println("(99) :> Logout")
 		fmt.Print("Masukkan Pilihan : ")
 
@@ -116,9 +116,9 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 		case 12:
 			rs.CreateReceipt(cs, ps, user)
 		case 13:
-			fmt.Println("COMING SOON")
+			rs.ViewReceipt()
 		case 14:
-			fmt.Println("COMING SOON")
+			rs.DeleteReceipt()
 
 		case 15:
 			fmt.Println("COMING SOON")
@@ -165,7 +165,7 @@ func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *custom
 		case 6:
 			rs.CreateReceipt(cs, ps, user)
 		case 7:
-			fmt.Println("COMING SOON")
+			rs.ViewReceipt()
 		case 8:
 			fmt.Println("COMING SOON")
 		case 0:
