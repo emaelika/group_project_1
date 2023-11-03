@@ -27,9 +27,6 @@ func (rs *ReceiptsSystem) CreateReceipt(cs *customers.CustomersSystem, ps *produ
 			return
 		}
 
-		nota.CustomerID = pembeli.CustomerID
-		nota.CustomerName = pembeli.CustomerName
-
 		// Membuat keranjang untuk menyimpan produk yang akan dibeli
 		var keranjang []model.Product
 		var jumlahisi []int
@@ -51,7 +48,7 @@ func (rs *ReceiptsSystem) CreateReceipt(cs *customers.CustomersSystem, ps *produ
 			item, err = ps.SelectProduct(productName)
 			if err != nil {
 				fmt.Println("Barang tidak ditemukan")
-				continue
+				return
 			}
 
 			fmt.Print("Masukkan Jumlah pembelian: ")
@@ -104,6 +101,8 @@ func (rs *ReceiptsSystem) CreateReceipt(cs *customers.CustomersSystem, ps *produ
 			nota.Quantity = jumlahisi[i]
 			nota.Total = product.Price * float64(jumlahisi[i])
 			nota.TransactionID = uid
+			nota.CustomerName = pembeli.CustomerName
+			nota.CustomerID = pembeli.CustomerID
 			result := rs.DB.Create(&nota)
 			if result.Error != nil {
 				fmt.Println("Error saat menambahkan nota:", result.Error)

@@ -1,15 +1,17 @@
 package model
 
 import (
-    "time"
+	"time"
 )
 
 type Transaction struct {
-    TransactionID uint `gorm:"primaryKey"`
-    UserID        uint `gorm:"foreignKey"`
-    CustomerID    uint `gorm:"foreignKey"`
-    Quantity int
-    Total     float64
-    CreatedAt time.Time
-    UpdatedAt time.Time
+	TransactionID uint `gorm:"primaryKey"`
+	UserID        uint `gorm:"foreignKey"`
+	CustomerID    uint `gorm:"foreignKey"`
+
+	Quantity int
+
+	Total     float64
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
