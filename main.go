@@ -114,7 +114,7 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 		case 11:
 			cs.DeleteCustomer()
 		case 12:
-
+			rs.CreateReceipt(cs, ps, user)
 		case 13:
 
 		case 99:
