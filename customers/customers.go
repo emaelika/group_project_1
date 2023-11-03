@@ -43,9 +43,6 @@ func (cs *CustomersSystem) AddCustomer() {
         longString, _ = reader.ReadString('\n')
         Customer.Phone = longString
 
-        
-
-
         result := cs.DB.Create(&Customer)
 
         if result.Error != nil {
@@ -142,4 +139,24 @@ func (cs *CustomersSystem) DeleteCustomer() {
              continue
          }
     }
+}
+
+// func (cs *CustomersSystem) SelectCustomer(CustName string) (model.Customer, error) {
+// 	var cust model.Customer
+// 	err := cs.DB.Where("Customer_Name = ?", CustName).First(&cust).Error
+// 	if err != nil {
+// 		return cust, err
+// 	}
+
+// 	return cust, nil
+// }
+
+func (cs *CustomersSystem) SelectCustomer(CustName string) (model.Customer, error) {
+    var cust model.Customer
+    result := cs.DB.Where("Customer_Name = ?", CustName).Find(&cust)
+    if result.Error != nil {
+        return cust, result.Error
+    }
+
+    return cust, nil
 }

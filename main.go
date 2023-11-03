@@ -7,8 +7,10 @@ import (
 	"sqlgo/customers"
 	"sqlgo/model"
 	"sqlgo/products"
+	"sqlgo/receipts"
 	"sqlgo/users"
 )
+
 
 func main() {
 	db, err := config.InitDB()
@@ -27,12 +29,13 @@ func main() {
 	var ps = products.ProductssSystem{DB: auth.DB}
 	var us = users.UsersSystem{DB: auth.DB}
 	var cs = customers.CustomersSystem{DB: auth.DB}
+	var rs = receipts.ReceiptsSystem{DB: auth.DB}
 	fmt.Println("\nSelamat Datang Di Tokoku App!")
-	menuUtama(&auth, &ps, &us, &cs)
+	menuUtama(&auth, &ps, &us, &cs, &rs)
 
 }
 
-func menuUtama(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.UsersSystem, cs *customers.CustomersSystem) {
+func menuUtama(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.UsersSystem, cs *customers.CustomersSystem, rs *receipts.ReceiptsSystem) {
 
 	for {
 		fmt.Println("\n     === MENU ===")
@@ -48,9 +51,9 @@ func menuUtama(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 			user, loggedIn := auth.Login()
 			if loggedIn {
 				if user.Role == "admin" {
-					menuAdmin(auth, ps, us, cs, user)
+					menuAdmin(auth, ps, us, cs, rs, user)
 				} else if user.Role == "pegawai" {
-					menuPegawai(auth, ps, cs, user)
+					menuPegawai(auth, ps, cs, rs, user)
 				}
 			}
 		case 0:
@@ -62,7 +65,7 @@ func menuUtama(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 	}
 }
 
-func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.UsersSystem, cs *customers.CustomersSystem, user model.User) {
+func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.UsersSystem, cs *customers.CustomersSystem, rs *receipts.ReceiptsSystem, user model.User) {
 	for {
 
 		fmt.Println("\n    === MENU ADMIN  ===")
@@ -78,7 +81,9 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 		fmt.Println("(10) :> Hapus Customer")
 		fmt.Println("(11) :> Buat Nota Transaksi")
 		fmt.Println("(12) :> Lihat Daftar Transaksi")
-		fmt.Println("(13) :> Hapus Transaksi")
+		fmt.Println("(13) :> Lihat Daftar Nota Transaksi")
+		fmt.Println("(14) :> Hapus Transaksi")
+		fmt.Println("(15) :> Hapus Nota Transaksi")
 		fmt.Println("(99) :> Logout")
 		fmt.Print("Masukkan Pilihan : ")
 
@@ -106,6 +111,8 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 			cs.ViewCustomers()
 		case 10:
 			cs.DeleteCustomer()
+		case 11:
+			rs.CreateReceipt(cs, ps, user)
 		case 99:
 			fmt.Println("\nAdmin logout")
 			return
@@ -115,7 +122,7 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 	}
 }
 
-func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *customers.CustomersSystem, user model.User) {
+func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *customers.CustomersSystem, rs *receipts.ReceiptsSystem, user model.User) {
 	for {
 
 		fmt.Println("\n    === MENU PEGAWAI  ===")
@@ -144,7 +151,8 @@ func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *custom
 			cs.AddCustomer()
 		case 5:
 			cs.ViewCustomers()
-		
+		case 6:
+			rs.CreateReceipt(cs, ps, user)
 		case 0:
 			fmt.Println("")
 
