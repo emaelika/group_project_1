@@ -82,8 +82,8 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 		fmt.Println("(12) :> Buat Nota Transaksi")
 		fmt.Println("(13) :> Lihat Daftar Transaksi")
 		fmt.Println("(14) :> Lihat Daftar Nota Transaksi")
-		fmt.Println("(14) :> Hapus Transaksi")
-		fmt.Println("(15) :> Hapus Nota Transaksi")
+		fmt.Println("(15) :> Hapus Transaksi")
+		fmt.Println("(16) :> Hapus Nota Transaksi")
 		fmt.Println("(99) :> Logout")
 		fmt.Print("Masukkan Pilihan : ")
 
@@ -116,7 +116,14 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 		case 12:
 			rs.CreateReceipt(cs, ps, user)
 		case 13:
+			fmt.Println("COMING SOON")
+		case 14:
+			fmt.Println("COMING SOON")
 
+		case 15:
+			fmt.Println("COMING SOON")
+		case 16:
+			fmt.Println("COMING SOON")
 		case 99:
 			fmt.Println("\nAdmin logout")
 			return
@@ -158,8 +165,9 @@ func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *custom
 		case 6:
 			rs.CreateReceipt(cs, ps, user)
 		case 7:
+			fmt.Println("COMING SOON")
 		case 8:
-
+			fmt.Println("COMING SOON")
 		case 0:
 			fmt.Println("")
 
