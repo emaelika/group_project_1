@@ -11,7 +11,6 @@ import (
 	"sqlgo/users"
 )
 
-
 func main() {
 	db, err := config.InitDB()
 	if err != nil {
@@ -93,18 +92,18 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 		switch choice {
 		case 1:
 			us.AddPegawai()
-        case 2:
+		case 2:
 			us.ViewPegawai()
 		case 3:
 			us.DeletePegawai()
-        case 4:
+		case 4:
 			ps.AddProduct(user)
-        case 5:
-            ps.ViewProduct()
-        case 6:
-            ps.UpdateProduct()
+		case 5:
+			ps.ViewProduct()
+		case 6:
+			ps.UpdateProduct()
 		case 7:
-            ps.DeleteProduct()
+			ps.DeleteProduct()
 		case 8:
 			cs.AddCustomer()
 		case 9:
@@ -151,16 +150,19 @@ func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *custom
 		switch choice {
 		case 1:
 			ps.AddProduct(user)
-        case 2:
-            ps.UpdateProduct()
-        case 3:
-            ps.ViewProduct()
+		case 2:
+			ps.UpdateProduct()
+		case 3:
+			ps.ViewProduct()
 		case 4:
 			cs.AddCustomer()
 		case 5:
 			cs.ViewCustomers()
 		case 6:
 			rs.CreateReceipt(cs, ps, user)
+		case 7:
+		case 8:
+
 		case 0:
 			fmt.Println("")
 

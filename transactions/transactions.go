@@ -10,9 +10,9 @@ import (
 type TransactionsSystem struct {
 	DB *gorm.DB
 }
+<<<<<<< HEAD
 
 // func (ts *TransactionsSystem) AddTransaction (ps *products.ProductssSystem, cs *customers.CustomersSystem, user model.User) {
-// 	var Transaksi model.Transaction
 	
 // 	var custName string
 // 	var pembeli model.Customer
@@ -99,4 +99,6 @@ func (ts *TransactionsSystem) ViewTransactions() {
 	for _, Transaction := range List {
 		fmt.Printf("\nNomor Nota: %v, Tanggal: %v, Customer: %v, Kasir: %v, Barang: %v, Harga: %v, Jumlah: %v, Total: %v\n", Transaction.TransactionID, Transaction.CreatedAt, Transaction.CustomerID, Transaction.UserID, Transaction.ProductID, Transaction.Price, Transaction.Quantity, Transaction.Total)
 	}
-}
+=======
+
+func (ts *TransactionsSystem) AddTransaction(user model.User, produk model.Product, nota model.Receipt) {
