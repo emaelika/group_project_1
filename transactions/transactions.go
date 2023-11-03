@@ -1,29 +1,25 @@
-// package transactions
+package transactions
 
-// import (
-// 	"fmt"
+import (
+	"fmt"
+	"sqlgo/model"
 
-// 	"sqlgo/customers"
-// 	"sqlgo/model"
-// 	"sqlgo/products"
+	"gorm.io/gorm"
+)
 
-// 	"gorm.io/gorm"
-// )
-
-// type TransactionsSystem struct {
-// 	DB *gorm.DB
-// }
+type TransactionsSystem struct {
+	DB *gorm.DB
+}
 
 // func (ts *TransactionsSystem) AddTransaction (ps *products.ProductssSystem, cs *customers.CustomersSystem, user model.User) {
 // 	var Transaksi model.Transaction
 	
-// 	var cust uint
-	
+// 	var custName string
 // 	var pembeli model.Customer
 	
-// 	fmt.Print("Masukkan id customer : ")
-// 	fmt.Scanln(&cust)
-// 	pembeli, err := cs.SelectCustomer(cust)
+// 	fmt.Print("Masukkan nama customer : ")
+// 	fmt.Scanln(&custName)
+// 	pembeli, err := cs.SelectCustomerByName(custName)
 // 	if err !=  nil {
 // 		fmt.Println("Customer Tidak Ditemukan")
 // 		return
@@ -32,9 +28,14 @@
 // 	Transaksi.CustomerID = pembeli.CustomerID
 
 // 	fmt.Print("Masukkan Produk yang dibeli: ")
-// 	fmt.Scanln(&cust)
+// 	var prodName string
+// 	fmt.Scanln(&prodName)
 // 	var item model.Product
-// 	item, _ = ps.SelectProduct(cust)
+// 	item, err = ps.SelectProductByName(prodName)
+// 	if err != nil {
+// 		fmt.Println("Produk Tidak Ditemukan")
+// 		return
+// 	}
 	
 // 	fmt.Printf("%s, Harga: %v, Stok: %v\n", item.ProductName, item.Price, item.Stok)
 // 	fmt.Print("Masukkan Jumlah pembelian: ")
@@ -67,34 +68,35 @@
 // 	fmt.Printf("\nTransaksi Berhasil ditambahkan oleh %s!\n",  user.Username)
 // }
 
-// func (ts *TransactionsSystem) DeleteTransaction(transactionID uint) {
-// 	var transaction model.Transaction
 
-// 	result := ts.DB.First(&transaction, transactionID)
-// 	if result.Error != nil {
-// 		fmt.Println("Transaksi tidak ditemukan")
-// 		return
-// 	}
+func (ts *TransactionsSystem) DeleteTransaction(transactionID uint) {
+	var transaction model.Transaction
 
-// 	result = ts.DB.Delete(&transaction)
-// 	if result.Error != nil {
-// 		fmt.Println("Error saat menghapus transaksi", result.Error)
-// 		return
-// 	}
+	result := ts.DB.First(&transaction, transactionID)
+	if result.Error != nil {
+		fmt.Println("Transaksi tidak ditemukan")
+		return
+	}
 
-// 	fmt.Println("Transaksi berhasil dihapus")
-// }
+	result = ts.DB.Delete(&transaction)
+	if result.Error != nil {
+		fmt.Println("Error saat menghapus transaksi", result.Error)
+		return
+	}
 
-// func (ts *TransactionsSystem) ViewTransactions() {
-// 	var List []model.Transaction
+	fmt.Println("Transaksi berhasil dihapus")
+}
 
-// 	result := ts.DB.Find(&List)
-// 	if result.Error != nil {
-// 		fmt.Println("Error Saat Menampilkan Transaksi", result.Error)
-// 		return
-// 	}
+func (ts *TransactionsSystem) ViewTransactions() {
+	var List []model.Transaction
 
-// 	for _, Transaction := range List {
-// 		fmt.Printf("\nNomor Nota: %v, Tanggal: %v, Customer: %v, Kasir: %v, Barang: %v, Harga: %v, Jumlah: %v, Total: %v\n", Transaction.TransactionID, Transaction.CreatedAt, Transaction.CustomerID, Transaction.UserID, Transaction.ProductID, Transaction.Price, Transaction.Quantity, Transaction.Total)
-// 	}
-// }
+	result := ts.DB.Find(&List)
+	if result.Error != nil {
+		fmt.Println("Error Saat Menampilkan Transaksi", result.Error)
+		return
+	}
+
+	for _, Transaction := range List {
+		fmt.Printf("\nNomor Nota: %v, Tanggal: %v, Customer: %v, Kasir: %v, Barang: %v, Harga: %v, Jumlah: %v, Total: %v\n", Transaction.TransactionID, Transaction.CreatedAt, Transaction.CustomerID, Transaction.UserID, Transaction.ProductID, Transaction.Price, Transaction.Quantity, Transaction.Total)
+	}
+}

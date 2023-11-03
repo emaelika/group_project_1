@@ -125,3 +125,30 @@ func (rs *ReceiptsSystem) CreateReceipt(cs *customers.CustomersSystem, ps *produ
 		}
 	}
 }
+func (rs *ReceiptsSystem) ViewReceipt() {
+	var receipts []model.Receipt
+	
+	result := rs.DB.Find(&receipts)
+	if result.Error != nil {
+		fmt.Println("Error saat mencari nota:", result.Error)
+		return
+	}
+	for _, item := range receipts {
+		fmt.Printf("TransactionID: %v, CustomerID: %v, ProductID: %v, CustomerName: %v, ProductName: %v, Total: %v, Quantity: %v, Price: %v, CreatedAt: %v, UpdatedAt: %v\n",
+			item.TransactionID, item.CustomerID, item.ProductID, item.CustomerName, item.ProductName, item.Total, item.Quantity, item.Price, item.CreatedAt, item.UpdatedAt)
+	}
+}
+
+func (rs *ReceiptsSystem) DeleteReceipt() {
+	fmt.Print("Masukkan Transaction ID: ")
+	var transactionID uint
+	fmt.Scanln(&transactionID)
+
+	var receipt model.Receipt
+	result := rs.DB.Where("transaction_id = ?", transactionID).Delete(&receipt)
+	if result.Error != nil {
+		fmt.Println("Error saat menghapus nota:", result.Error)
+		return
+	}
+	fmt.Println("Nota berhasil dihapus.")
+}

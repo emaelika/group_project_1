@@ -141,16 +141,6 @@ func (cs *CustomersSystem) DeleteCustomer() {
     }
 }
 
-// func (cs *CustomersSystem) SelectCustomer(CustName string) (model.Customer, error) {
-// 	var cust model.Customer
-// 	err := cs.DB.Where("Customer_Name = ?", CustName).First(&cust).Error
-// 	if err != nil {
-// 		return cust, err
-// 	}
-
-// 	return cust, nil
-// }
-
 func (cs *CustomersSystem) SelectCustomer(CustName string) (model.Customer, error) {
     var cust model.Customer
     result := cs.DB.Where("Customer_Name = ?", CustName).Find(&cust)
