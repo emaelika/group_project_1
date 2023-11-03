@@ -110,11 +110,11 @@ func menuAdmin(auth *auth.AuthSystem, ps *products.ProductssSystem, us *users.Us
 		case 9:
 			cs.ViewCustomers()
 		case 10:
-			cs.EditCustomer()
-		case 11:
 			cs.DeleteCustomer()
-		case 12:
+		case 11:
 			rs.CreateReceipt(cs, ps, user)
+		case 12:
+			rs.ViewReceipt()
 		case 13:
 			rs.ViewReceipt()
 		case 14:
@@ -143,8 +143,8 @@ func menuPegawai(auth *auth.AuthSystem, ps *products.ProductssSystem, cs *custom
 		fmt.Println("(4) :> Tambah Customer")
 		fmt.Println("(5) :> Lihat Daftar Customer")
 		fmt.Println("(6) :> Buat Nota Transaksi")
-		fmt.Println("(7) :> Lihat Daftar Nota Transaksi")
-		fmt.Println("(8) :> Lihat Daftar Transaksi")
+		fmt.Println("(7) :> Lihat Daftar Transaksi (COMING SOON)")
+		fmt.Println("(9) :> ")
 		fmt.Println("(99) :> Logout")
 		fmt.Print("Masukkan Pilihan : ")
 
