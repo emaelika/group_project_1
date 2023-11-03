@@ -21,8 +21,6 @@
 	
 // 	var pembeli model.Customer
 	
-// //	longString, _ := reader.ReadString('\n')
-// //	Product.ProductName = longString
 // 	fmt.Print("Masukkan id customer : ")
 // 	fmt.Scanln(&cust)
 // 	pembeli, err := cs.SelectCustomer(cust)
@@ -38,7 +36,7 @@
 // 	var item model.Product
 // 	item, _ = ps.SelectProduct(cust)
 	
-// 	fmt.Printf(item.ProductName, item.Price, "Stok: ", item.Stok, "\n")
+// 	fmt.Printf("%s, Harga: %v, Stok: %v\n", item.ProductName, item.Price, item.Stok)
 // 	fmt.Print("Masukkan Jumlah pembelian: ")
 // 	var jumlah int
 // 	fmt.Scanln(&jumlah)
@@ -69,6 +67,24 @@
 // 	fmt.Printf("\nTransaksi Berhasil ditambahkan oleh %s!\n",  user.Username)
 // }
 
+// func (ts *TransactionsSystem) DeleteTransaction(transactionID uint) {
+// 	var transaction model.Transaction
+
+// 	result := ts.DB.First(&transaction, transactionID)
+// 	if result.Error != nil {
+// 		fmt.Println("Transaksi tidak ditemukan")
+// 		return
+// 	}
+
+// 	result = ts.DB.Delete(&transaction)
+// 	if result.Error != nil {
+// 		fmt.Println("Error saat menghapus transaksi", result.Error)
+// 		return
+// 	}
+
+// 	fmt.Println("Transaksi berhasil dihapus")
+// }
+
 // func (ts *TransactionsSystem) ViewTransactions() {
 // 	var List []model.Transaction
 
@@ -79,7 +95,6 @@
 // 	}
 
 // 	for _, Transaction := range List {
-// 		fmt.Printf("\nNomor Nota: %v, Tanggal: %v, Customer: %v,Kasir: %v\nBarang: %v, Harga: %v, Jumlah: %v\nTotal: %s\n, \n", Transaction.TransactionID, Transaction.CreatedAt, )
-// 		Transaction. Transaction. Transaction.
+// 		fmt.Printf("\nNomor Nota: %v, Tanggal: %v, Customer: %v, Kasir: %v, Barang: %v, Harga: %v, Jumlah: %v, Total: %v\n", Transaction.TransactionID, Transaction.CreatedAt, Transaction.CustomerID, Transaction.UserID, Transaction.ProductID, Transaction.Price, Transaction.Quantity, Transaction.Total)
 // 	}
 // }
